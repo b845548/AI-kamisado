@@ -1,0 +1,7 @@
+  nb_try             10
+--- p0 :
+      name     : ./ap_player
+      wins     : 10
+--- p1 :
+      name     : ./rnd_player
+      wins     : 3
