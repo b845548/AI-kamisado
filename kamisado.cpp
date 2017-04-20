@@ -319,8 +319,10 @@ void kamisado::play(void)
             }
             else
             {
-                if(DFS_AI(PLAYER2)==-1)
-                    break;            
+                if(DFS_AI(PLAYER2)==-1){
+                    std::cout << "match null\n";                
+                break;            
+                }
                 turn=PLAYER1;            
             }    
             
@@ -625,8 +627,12 @@ void kamisado::playStep(void)
              turn=PLAYER2;            
          }
          else
-         {
-             DFS_AI(turn);
+         {                
+                if(DFS_AI(PLAYER2)==-1){
+                    std::cout << "match null\n";                
+                    etat=END;
+                }
+
              turn=PLAYER1;            
          }               
          gameover();
