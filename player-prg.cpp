@@ -50,11 +50,11 @@ struct pf_player_t {
     if(ratio >= 0.5) return 1;
     return 0;
   }
-  int genmove() {
-    if(mytype == ptype_t::AP) return 0;
-    if(mytype == ptype_t::AF) return 1;
-    if(mytype == ptype_t::RND) return play_rand();
-    if(mytype == ptype_t::INV_AVG) return play_inv_avg();
+  char * genmove() {
+    if(mytype == ptype_t::AP) return (char *)"L1 C1 L2 C2";
+    if(mytype == ptype_t::AF) return (char *)"L2";
+    if(mytype == ptype_t::RND) return (char *)"L3";//play_rand();
+    if(mytype == ptype_t::INV_AVG) return (char *)"L4";//play_inv_avg();
     return 0;
   }
 };
@@ -97,12 +97,19 @@ struct pf_parser_t {
       fprintf(stdout, "= 1.0\n\n"); return true;
     }
     if(_v[0].compare("genmove") == 0) {
-      fprintf(stdout, "= %d\n\n", player.genmove()); return true;
+      fprintf(stdout, "= %s\n\n", player.genmove()); return true;
     }
     if(_v[0].compare("endgame") == 0) {
       int end_res = -1;
       if(_v.size() != 2) { fprintf(stdout, "= ?\n\n"); return true; }
-      if(_v.size() == 2) { end_res = strtol(_v[1].c_str(), 0, 10); }
+      if(_v.size() == 2) 
+      { 
+        char str;
+    
+         sscanf (_v[1].c_str(),"%c%d",&str,&end_res);
+    //    printf ("%s -> %d\n",str,i);
+   //   end_res = strtol(_v[1].c_str(), 0, 10); 
+      }
       player.res(end_res); fprintf(stdout, "= \n\n"); return true;
     }
     return false;
@@ -117,8 +124,8 @@ struct pf_parser_t {
     }
     if(_v[0].compare("move") == 0) {
       int new_move = -1;
-      if(_v.size() != 2) { fprintf(stdout, "= ?\n\n"); return true; }
-      if(_v.size() == 2) { new_move = strtol(_v[1].c_str(), 0, 10); }
+      if(_v.size() != 4) { fprintf(stdout, "= ?\n\n"); return true; }
+      if(_v.size() == 4) { new_move = strtol(_v[1].c_str(), 0, 10); }
       player.move(new_move); fprintf(stdout, "= \n\n"); return true;
     }
     return false;

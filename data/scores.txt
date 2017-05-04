@@ -88,3 +88,189 @@ p0_win: 9 p1_wins: 2
  ./ap_player win
  ./rnd_player win
 p0_win: 10 p1_wins: 3
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 1 p1_wins: 0
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 2 p1_wins: 0
+ ./ap_player win
+ ./rnd_player win
+p0_win: 3 p1_wins: 1
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 4 p1_wins: 1
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 5 p1_wins: 1
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 6 p1_wins: 1
+ ./ap_player win
+ ./rnd_player win
+p0_win: 7 p1_wins: 2
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 8 p1_wins: 2
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 9 p1_wins: 2
+ ./ap_player win
+ ./rnd_player win
+p0_win: 10 p1_wins: 3
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 1 p1_wins: 0
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 2 p1_wins: 0
+ ./ap_player win
+ ./rnd_player win
+p0_win: 3 p1_wins: 1
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 4 p1_wins: 1
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 5 p1_wins: 1
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 6 p1_wins: 1
+ ./ap_player win
+ ./rnd_player win
+p0_win: 7 p1_wins: 2
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 8 p1_wins: 2
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 9 p1_wins: 2
+ ./ap_player win
+ ./rnd_player win
+p0_win: 10 p1_wins: 3
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 1 p1_wins: 0
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 2 p1_wins: 0
+ ./ap_player win
+ ./rnd_player win
+p0_win: 3 p1_wins: 1
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 4 p1_wins: 1
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 5 p1_wins: 1
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 6 p1_wins: 1
+ ./ap_player win
+ ./rnd_player win
+p0_win: 7 p1_wins: 2
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 8 p1_wins: 2
+ ./ap_player win
+ ./rnd_player loss
+p0_win: 9 p1_wins: 2
+ ./ap_player win
+ ./rnd_player win
+p0_win: 10 p1_wins: 3
+ ./ap_player win
+ ./rnd_player win
+p0_win: 1 p1_wins: 1
+ ./ap_player win
+ ./rnd_player win
+p0_win: 2 p1_wins: 2
+ ./ap_player win
+ ./rnd_player win
+p0_win: 3 p1_wins: 3
+ ./ap_player win
+ ./rnd_player win
+p0_win: 4 p1_wins: 4
+ ./ap_player win
+ ./rnd_player win
+p0_win: 5 p1_wins: 5
+ ./ap_player win
+ ./rnd_player win
+p0_win: 6 p1_wins: 6
+ ./ap_player win
+ ./rnd_player win
+p0_win: 7 p1_wins: 7
+ ./ap_player win
+ ./rnd_player win
+p0_win: 8 p1_wins: 8
+ ./ap_player win
+ ./rnd_player win
+p0_win: 9 p1_wins: 9
+ ./ap_player win
+ ./rnd_player win
+p0_win: 10 p1_wins: 10
+ ./ap_player win
+ ./rnd_player win
+p0_win: 1 p1_wins: 1
+ ./ap_player win
+ ./rnd_player win
+p0_win: 2 p1_wins: 2
+ ./ap_player win
+ ./rnd_player win
+p0_win: 3 p1_wins: 3
+ ./ap_player win
+ ./rnd_player win
+p0_win: 4 p1_wins: 4
+ ./ap_player win
+ ./rnd_player win
+p0_win: 5 p1_wins: 5
+ ./ap_player win
+ ./rnd_player win
+p0_win: 6 p1_wins: 6
+ ./ap_player win
+ ./rnd_player win
+p0_win: 7 p1_wins: 7
+ ./ap_player win
+ ./rnd_player win
+p0_win: 8 p1_wins: 8
+ ./ap_player win
+ ./rnd_player win
+p0_win: 9 p1_wins: 9
+ ./ap_player win
+ ./rnd_player win
+p0_win: 10 p1_wins: 10
+ ./ap_player win
+ ./rnd_player win
+p0_win: 1 p1_wins: 1
+ ./ap_player win
+ ./rnd_player win
+p0_win: 2 p1_wins: 2
+ ./ap_player win
+ ./rnd_player win
+p0_win: 1 p1_wins: 1
+ ./ap_player win
+ ./rnd_player win
+p0_win: 2 p1_wins: 2
+ ./ap_player win
+ ./rnd_player win
+p0_win: 3 p1_wins: 3
+ ./ap_player win
+ ./rnd_player win
+p0_win: 4 p1_wins: 4
+ ./ap_player win
+ ./rnd_player win
+p0_win: 5 p1_wins: 5
+ ./ap_player win
+ ./rnd_player win
+p0_win: 6 p1_wins: 6
+ ./ap_player win
+ ./rnd_player win
+p0_win: 7 p1_wins: 7
+ ./ap_player win
+ ./rnd_player win
+p0_win: 8 p1_wins: 8
+ ./ap_player win
+ ./rnd_player win
+p0_win: 9 p1_wins: 9
+ ./ap_player win
+ ./rnd_player win
+p0_win: 10 p1_wins: 10

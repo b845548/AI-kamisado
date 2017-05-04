@@ -2,7 +2,8 @@
 #include"kamisado.h"
 
 #include<assert.h>
-
+#include<string.h>
+#include<string>
 
 
 
@@ -13,6 +14,7 @@ void kamisado::initializeTable(void)
     FILE * f,* f2;
     char buf[100];char buf2[100];
     etat=INIT;
+    playerAI=-1;    
     turn=PLAYER1;
     winner=0;
     intelligence=IA_RANDOM;
@@ -47,6 +49,7 @@ void kamisado::initializeTable(void)
 
 kamisado::kamisado(void)
 {
+    
     initializeTable();
 }
 
@@ -172,7 +175,7 @@ void kamisado::RANDOM_AI(int player)
         lastGroundColor=pieceTable[mv.coordonnes[randomNB][randomNB2].x+WIDTH*mv.coordonnes[randomNB][randomNB2].y].color_ground;
         placer(pieceTable,v,mv.coordonnes[randomNB][randomNB2]);
 }
-void kamisado::gameover(void)
+int kamisado::gameover(void)
 {
     for(int i=0;i<WIDTH;i++)
     {
@@ -180,14 +183,16 @@ void kamisado::gameover(void)
         {
             winner=PLAYER2;
             etat=END;
+            return winner;
         }    
         if(pieceTable[i+WIDTH*START_POINT_PLAYER2].player==PLAYER1)
         {
             winner=PLAYER1;
             etat=END;
+            return winner;
         }    
     }
-
+    return -1;
 }
 
 int kamisado::DFS_win(piece * table,int player)
@@ -336,13 +341,17 @@ void kamisado::play(void)
     
 
 }
+
 void rectangle(int x, int y, int w,int h)
 {
     for(int i=0;i<h;i++)
     {
         for(int j=0;j<w;j++)
         {
+        #ifdef SDL
             gl4dpPutPixel(x+i,y+j);
+        #endif
+
         }
     }
 
@@ -353,6 +362,7 @@ int r,g,b;
 color colorTable[]={{255,255,255},{255,99,71},{0,0,255},{32,112,255},{255,222,193},{255,255,0},{255,0,0},{0,255,0},{78,46,40}};
 void kamisado::draw(void)
 {
+    #ifdef SDL
     int padX=20,padY=20;
     int rect=50;
 
@@ -385,9 +395,8 @@ void kamisado::draw(void)
 	      }
     }
 
-
+#endif
 }
-
 std::pair<int,double> kamisado::MCTS_selection(int courant, std::pair<int,double>max)
 {
     if(arbre.find(courant)==arbre.end())
@@ -573,24 +582,24 @@ void kamisado::MCTS_retroPropagation(int id,int score,int total)
     root.total_play+=total;
 }
 
-void kamisado::MCTS_AI(int player)
+std::string kamisado::MCTS_AI(int player)
 {
     std::pair<int,double> max;
     MCTS_initialize(player);
-
-    for(int it_develop=0;it_develop<20;++it_develop)
+    int maxBranche=30;
+    int nbSimulation=20;
+    for(int it_develop=0;it_develop<maxBranche;++it_develop)
     {
         max=MCTS_selection(0,(std::pair<int,double>){-1,-1.00});
         int expNode=MCTS_expansion(max.first);
         int score=0;    
-        int total=20;
-        for(int it_simulation=0;it_simulation<total;++it_simulation){
+        for(int it_simulation=0;it_simulation<nbSimulation;++it_simulation){
             
            if(MCTS_simulation(expNode)==player){
             score++;
             }
         }    
-        MCTS_retroPropagation(expNode,score,total);
+        MCTS_retroPropagation(expNode,score,nbSimulation);
     }
    // MCTS_printArbre(0);
 
@@ -613,7 +622,8 @@ void kamisado::MCTS_AI(int player)
     placer(pieceTable,probable.move.first,probable.move.second);
     
 
- 
+    return "L"+std::to_string(probable.move.first.y)+" C"+std::to_string(probable.move.first.x)
++" L"+std::to_string(probable.move.second.y)+" C"+std::to_string(probable.move.second.x);
 }
 
 void kamisado::playStep(void)
@@ -643,20 +653,113 @@ void kamisado::playStep(void)
      }
 
 }
+bool pf_alive=true;
 
-/*
+bool kamisado::AI_Play(std::vector<std::string> command)
+{
+    if(command[0].compare("init") == 0) 
+    {
+        initializeTable();
+        fprintf(stdout, "= \n\n"); 
+        return true;
+    }
+    if(command[0].compare("name") == 0) 
+    {
+        fprintf(stdout, "= MCTS\n\n");
+        return true;
+    }
+    if(command[0].compare("version") == 0) 
+    {      
+        fprintf(stdout, "= 1.0\n\n"); 
+        return true;
+    }
+    if(command[0].compare("move") == 0) 
+    {
+        if(command.size()==5)
+        {        
+            int ancienY=command[1][1]-'0';
+            int ancienX=command[2][1]-'0';
+            int nouveauY=command[3][1]-'0';;
+            int nouveauX=command[4][1]-'0';
+
+            if(playerAI==-1)
+               playerAI=pieceTable[ancienX+WIDTH*ancienY].player;
+            pieceTable[nouveauX+WIDTH*nouveauY].player=pieceTable[ancienX+WIDTH*ancienY].player;    
+            pieceTable[nouveauX+WIDTH*nouveauY].color_piece=pieceTable[ancienX+WIDTH*ancienY].color_piece;    
+            pieceTable[ancienX+WIDTH*ancienY].player=0;
+            pieceTable[ancienX+WIDTH*ancienY].color_piece=0;
+            lastGroundColor=pieceTable[nouveauX+WIDTH*nouveauY].color_ground;
+            return true;
+        }else
+            return false;
+    }
+    if(command[0].compare("info") == 0) 
+    {
+        fprintf(stderr, "Player : %d\n",playerAI);
+        fprintf(stderr, "last color : %d\n",lastGroundColor);
+        printPieceTable();
+        fflush(stderr);
+        return true;
+    }
+    if(command[0].compare("genmove") == 0) 
+    {
+        if(playerAI==-1)
+           playerAI=PLAYER1;
+        std::string move=MCTS_AI(playerAI);
+        fprintf(stdout, "= %s\n\n", move.c_str()); 
+        return true;
+    }
+    if(command[0].compare("help") == 0) 
+    {
+        fprintf(stderr, "  quit\n");
+        fprintf(stderr, "  name\n");
+        fprintf(stderr, "  version\n");
+        fprintf(stderr, "  genmove\n");
+        fprintf(stderr, "  move\n");
+        fflush(stderr);
+        return true;
+    }
+    if(command[0].compare("quit") == 0) {
+        fprintf(stdout, "= \n\n"); 
+        pf_alive = false; 
+        return true;
+    } 
+
+    return false;
+}
+kamisado jeu;
+
+
+void stdin_text_parser() {
+    std::string command;
+    while(pf_alive == true) {
+      getline(std::cin, command);
+      if(0 != (int)command.length()) {
+	if(command.c_str()[0] != '#') {
+	  char* cstr = new char [command.size()+1];
+	  strcpy (cstr, command.c_str());
+	  char* cstr2 = strtok(cstr, " ");
+	  std::vector<std::string> vcmd;
+	  while(cstr2 != 0) {
+	    vcmd.push_back(std::string(cstr2));
+	    cstr2 = strtok(0, " ");
+	  }
+	  delete cstr;
+      jeu.AI_Play(vcmd);
+ 	}
+      }
+    }
+  }
+
+//Interfacage 
+//>> g++ kamisado.cpp -DAI -o MCTS -std=c++11
+//Graphique
+//>> make
+#ifdef AI
 int main(){
-    kamisado jeu;
     srand(time(NULL));
-    //jeu.printColorTable();
-    //jeu.printPieceTable();
-//    jeu.play();
-    jeu.MCTS_AI(PLAYER1);
-    jeu.printColorTable();
-    jeu.printPieceTable();
-    
+    stdin_text_parser();    
 }
 
-*/
-
+#endif
 

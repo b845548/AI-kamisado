@@ -4,4 +4,4 @@
       wins     : 10
 --- p1 :
       name     : ./rnd_player
-      wins     : 3
+      wins     : 10
